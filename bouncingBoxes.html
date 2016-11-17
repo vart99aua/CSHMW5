@@ -23,6 +23,9 @@
 	    }
 	    return color;
 	}
+	    function getRandomArbitrary(min, max) {
+        return Math.random() * (max - min) + min;
+    }
 
     for(let i = 0; i < NUM_POINTS; i++) {
 
@@ -50,15 +53,37 @@
                 context.closePath();
                 context.fill();
 
-                if (point.x + point.radius > canvas.width || point.x < 0){
-    					point.xDelta = -point.xDelta;
-    			}
-  				if (point.y + point.radius > canvas.height || point.y < 0){
-    					point.yDelta = -point.yDelta;
-    			}
- 
-						  point.x += point.xDelta;
-						  point.y += point.yDelta;
+          
+				if (point.x <= 0) {
+                    point.xDelta = 1;
+                } else if (point.x + point.radius >= canvas.width) {
+                    point.xDelta = 0;
+                }
+                if (point.y <= 0) {
+                    point.yDelta = 1;
+                } else if (point.y + point.radius >= canvas.height) {
+                    point.yDelta = 0;
+                }
+
+                if (point.xDelta == 1) {
+
+                    context.fillRect(point.x, point.y, point.width, point.height);
+                    point.x += 1;
+
+
+                } else {
+                    context.fillRect(point.x, point.y, point.width, point.height);
+                    point.x -= 1;
+
+                }
+
+                if (point.yDelta == 1) {
+                    context.fillRect(point.x, point.y, point.width, point.height);
+                    point.y += getRandomArbitrary(0, 0.65);
+                } else {
+                    context.fillRect(point.x, point.y, point.width, point.height);
+                    point.y += getRandomArbitrary(-0.65, 0);
+                }
 
             });
         };
