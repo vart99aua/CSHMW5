@@ -13,9 +13,6 @@
 
     const NUM_POINTS = 30;
 
-    function getRandomArbitrary(min, max) {
-        return Math.random() * (max - min) + min;
-    }
 
     const points = [];
 	function getRandomColor() {
@@ -35,10 +32,6 @@
 
             y: Math.random() * canvas.height,
 
-//            width: Math.random() * 10,
-//
-//            height: Math.random() * 10,
-
             xDelta: 1, // the change that you will add to x, you can flip it when you get to the edge
 
             yDelta: 1, // the change that you will add to y, you can flip it when you get to the edge
@@ -57,47 +50,15 @@
                 context.closePath();
                 context.fill();
 
-      //           if (point.x + point.radius > canvas.width || point.x < 0){
-    		// 			point.xDelta = -point.xDelta;
-    		// 	}
-  				// if (point.y + point.radius > canvas.height || point.y < 0){
-    		// 			point.yDelta = -point.yDelta;
-    		// 	}
+                if (point.x + point.radius > canvas.width || point.x < 0){
+    					point.xDelta = -point.xDelta;
+    			}
+  				if (point.y + point.radius > canvas.height || point.y < 0){
+    					point.yDelta = -point.yDelta;
+    			}
  
-						//   point.x += point.xDelta;
-						//   point.y += point.yDelta;
-
-
-                if (point.x <= 0) {
-                    point.xDelta = 1;
-                } else if (point.x + point.radius >= canvas.width) {
-                    point.xDelta = 0;
-                }
-                if (point.y <= 0) {
-                    point.yDelta = 1;
-                } else if (point.y + point.radius >= canvas.height) {
-                    point.yDelta = 0;
-                }
-
-                if (point.xDelta == 1) {
-
-                    context.fillRect(point.x, point.y, point.width, point.height);
-                    point.x += 1;
-
-
-                } else {
-                    context.fillRect(point.x, point.y, point.width, point.height);
-                    point.x -= 1;
-
-                }
-
-                if (point.yDelta == 1) {
-                    context.fillRect(point.x, point.y, point.width, point.height);
-                    point.y += getRandomArbitrary(0, 0.65);
-                } else {
-                    context.fillRect(point.x, point.y, point.width, point.height);
-                    point.y += getRandomArbitrary(-0.65, 0);
-                }
+						  point.x += point.xDelta;
+						  point.y += point.yDelta;
 
             });
         };
@@ -107,13 +68,13 @@
 
             draw();
        	  function getRandomColor() {
-    let letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++ ) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
+		    let letters = '0123456789ABCDEF';
+		    let color = '#';
+		    for (let i = 0; i < 6; i++ ) {
+		        color += letters[Math.floor(Math.random() * 16)];
+		    }
+		    return color;
+		}
     
             setTimeout(animate, 10);
 
